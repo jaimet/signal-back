@@ -71,12 +71,11 @@ func ExtractAttachments(bf *types.BackupFile) error {
 		ps := f.GetStatement().GetParameters()
 		if len(ps) == 25 { // Contains blob information
 			aEncs[*ps[19].IntegerParameter] = *ps[3].StringParamter
-			if *ps[19].IntegerParameter == 1522811988909 {
-				fmt.Println(ps)
-			}
+			fmt.Printf("found attachment metadata %v: `%v`\n", *ps[19].IntegerParameter, ps)
 		}
 
 		if a := f.GetAttachment(); a != nil {
+			fmt.Printf("found attachment binary %v\n\n", *a.AttachmentId)
 			ext := getExt(aEncs[*a.AttachmentId], *a.AttachmentId)
 			fileName := fmt.Sprintf("%v%s", *a.AttachmentId, ext)
 			file, err := os.OpenFile(fileName, os.O_CREATE|os.O_WRONLY, os.ModePerm)
