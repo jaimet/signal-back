@@ -71,7 +71,7 @@ func ExtractAttachments(bf *types.BackupFile) error {
 		ps := f.GetStatement().GetParameters()
 		if len(ps) == 25 { // Contains blob information
 			aEncs[*ps[19].IntegerParameter] = *ps[3].StringParamter
-			if *ps[3].StringParamter == "" {
+			if *ps[19].IntegerParameter == 1522811988909 {
 				fmt.Println(ps)
 			}
 		}
